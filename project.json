@@ -1,0 +1,20 @@
+{
+  "overview": "A 45-day fitness and wellness transformation app for Indian users with guided workouts, an Indian-food diet plan, progress tracking, and a subscription paywall.",
+  "features": [
+    "Sign in with Internet Identity and complete a short onboarding flow",
+    "Follow a data-driven 45-day program with daily workout unlock system",
+    "Run animated workout sessions with timers and progress tracking",
+    "Track calories with an Indian-food diet plan",
+    "Monitor progress with completion history and streaks",
+    "Unlock the full program with a 90-day subscription"
+  ],
+  "category": "fitness",
+  "tags": [
+    "fitness",
+    "wellness",
+    "workout",
+    "diet",
+    "health"
+  ],
+  "last_updated": "2026-09-06T11:17:47.646Z"
+}

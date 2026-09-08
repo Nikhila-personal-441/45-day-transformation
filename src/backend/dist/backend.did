@@ -1,0 +1,153 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProgressView = 
+ record {
+   completedDays: vec nat;
+   completionPercentage: nat;
+   dailyCalorieTarget: nat;
+   mealLogs: vec MealLog;
+   streak: nat;
+ };
+type UserProfileView = 
+ record {
+   fitnessGoal: FitnessGoal;
+   id: UserId;
+   name: text;
+   onboardingComplete: bool;
+   startingLevel: StartingLevel;
+ };
+type UserId = principal;
+type Timestamp = int;
+type SubscriptionStatus = 
+ record {
+   active: bool;
+   daysRemaining: nat;
+   endTime: Timestamp;
+   startTime: Timestamp;
+ };
+type StartingLevel = 
+ variant {
+   advanced;
+   beginner;
+   intermediate;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type Program = record {days: vec Day;};
+type MealLog = 
+ record {
+   date: text;
+   items: vec FoodItem;
+   totalCalories: nat;
+ };
+type FoodItem = 
+ record {
+   calories: nat;
+   name: text;
+ };
+type FitnessGoal = 
+ variant {
+   buildMuscle;
+   generalHealth;
+   improveFitness;
+   loseWeight;
+ };
+type Exercise = 
+ record {
+   animationUrl: text;
+   durationSec: nat;
+   name: text;
+   reps: nat;
+   restSec: nat;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type DietPlan = 
+ record {
+   dailyCalorieTarget: nat;
+   foodOptions: vec FoodItem;
+ };
+type DayType = 
+ variant {
+   recovery;
+   rest;
+   workout;
+ };
+type Day = 
+ record {
+   dayNumber: nat;
+   dayType: DayType;
+   exercises: vec Exercise;
+   week: nat;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  activateSubscription: () -> (SubscriptionStatus);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  completeOnboarding: (name: text, fitnessGoal: FitnessGoal, startingLevel:
+   StartingLevel) -> (UserProfileView);
+  execute: (qJson: text) -> (Result) query;
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getCalorieLog: (date: text) -> (opt MealLog) query;
+  getDay: (dayNumber: nat) -> (opt Day) query;
+  getDaysByWeek: (week: nat) -> (vec Day) query;
+  getDietPlan: () -> (DietPlan) query;
+  getProfile: () -> (opt UserProfileView) query;
+  getProgram: () -> (Program) query;
+  getProgress: () -> (UserProgressView) query;
+  getSubscriptionStatus: () -> (SubscriptionStatus) query;
+  isCallerAdmin: () -> (bool) query;
+  isDayUnlocked: (dayNumber: nat) -> (bool) query;
+  logMeal: (date: text, items: vec FoodItem) -> (MealLog);
+  markDayComplete: (dayNumber: nat) -> (bool);
+  schema: () -> (text) query;
+}

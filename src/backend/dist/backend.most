@@ -1,0 +1,140 @@
+// Version: 4.0.0
+type AccessControlState__542955928 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__386906547<Principal, UserRole__222326311>
+  };
+type Data__265875254<K, V> = {var count : Nat__58649523; kvs : [var ?(K, V)]};
+type DayType__54084670 = {#recovery; #rest; #workout};
+type DayType__733471838 = {#recovery; #rest; #workout};
+type Day__196694429 =
+  {
+    dayNumber : Nat;
+    dayType : DayType__54084670;
+    exercises : [Exercise__936309387];
+    week : Nat
+  };
+type Day__683701344 =
+  {
+    dayNumber : Nat;
+    dayType : DayType__733471838;
+    exercises : [Exercise__583640227];
+    week : Nat
+  };
+type Exercise__583640227 =
+  {
+    animationUrl : Text;
+    durationSec : Nat;
+    name : Text;
+    reps : Nat;
+    restSec : Nat
+  };
+type Exercise__936309387 =
+  {
+    animationUrl : Text;
+    durationSec : Nat;
+    name : Text;
+    reps : Nat;
+    restSec : Nat
+  };
+type FitnessGoal__410399299 =
+  {#buildMuscle; #generalHealth; #improveFitness; #loseWeight};
+type FitnessGoal__926994189 =
+  {#buildMuscle; #generalHealth; #improveFitness; #loseWeight};
+type FoodItem__160707159 = {calories : Nat; name : Text};
+type FoodItem__937234916 = {calories : Nat; name : Text};
+type Internal__161573640<K, V> =
+  {children : [var ?Node__430031793<K, V>]; data : Data__265875254<K, V>};
+type Leaf__1045638083<K, V> = {data : Data__265875254<K, V>};
+type Map__13625999<K, V> =
+  {var root : Node__430031793<K, V>; var size : Nat__58649523};
+type Map__386906547<K, V> = Map__670138087<K, V>;
+type Map__670138087<K, V> = Map__13625999<K, V>;
+type MealLog__308656190 =
+  {date : Text; items : [FoodItem__160707159]; totalCalories : Nat};
+type MealLog__933019884 =
+  {date : Text; items : [FoodItem__937234916]; totalCalories : Nat};
+type Nat__58649523 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__681552274 =
+  {
+    accessControlState : AccessControlState__542955928;
+    programState : ProgramState__777445346
+  };
+type Node__430031793<K, V> =
+  {#internal : Internal__161573640<K, V>; #leaf : Leaf__1045638083<K, V>};
+type OldActor__916314435 = {};
+type ProgramState__777445346 =
+  {
+    profiles : Map__386906547<UserId__778382854, UserProfile__897725236>;
+    program : Program__244183155;
+    progress : Map__386906547<UserId__778382854, UserProgress__837889508>
+  };
+type Program__244183155 = {days : [Day__683701344]};
+type Program__684632587 = {days : [Day__196694429]};
+type StartingLevel__352393983 = {#advanced; #beginner; #intermediate};
+type StartingLevel__976391860 = {#advanced; #beginner; #intermediate};
+type SubscriptionState__102051843 =
+  {
+    var active : Bool;
+    var endTime : Timestamp__105253930;
+    var startTime : Timestamp__105253930
+  };
+type SubscriptionState__920442622 =
+  {
+    var active : Bool;
+    var endTime : Timestamp__582425852;
+    var startTime : Timestamp__582425852
+  };
+type Timestamp__105253930 = Int;
+type Timestamp__582425852 = Int;
+type UserId__778382854 = Principal;
+type UserId__968295140 = Principal;
+type UserProfile__1015904112 =
+  {
+    fitnessGoal : FitnessGoal__926994189;
+    id : UserId__968295140;
+    name : Text;
+    var onboardingComplete : Bool;
+    startingLevel : StartingLevel__976391860
+  };
+type UserProfile__897725236 =
+  {
+    fitnessGoal : FitnessGoal__410399299;
+    id : UserId__778382854;
+    name : Text;
+    var onboardingComplete : Bool;
+    startingLevel : StartingLevel__352393983
+  };
+type UserProgress__1068388486 =
+  {
+    var completedDays : [Nat];
+    var dailyCalorieTarget : Nat;
+    var mealLogs : [MealLog__933019884];
+    var subscription : SubscriptionState__102051843
+  };
+type UserProgress__837889508 =
+  {
+    var completedDays : [Nat];
+    var dailyCalorieTarget : Nat;
+    var mealLogs : [MealLog__308656190];
+    var subscription : SubscriptionState__920442622
+  };
+type UserRole__222326311 = {#admin; #guest; #user};
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20260906_000000" : (old : OldActor__916314435) -> NewActor__681552274
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__386906547<Principal, UserRole__91647283>
+    };
+  stable programState :
+    {
+      profiles : Map__386906547<UserId__968295140, UserProfile__1015904112>;
+      program : Program__684632587;
+      progress : Map__386906547<UserId__968295140, UserProgress__1068388486>
+    }
+};
